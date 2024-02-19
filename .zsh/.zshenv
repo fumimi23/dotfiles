@@ -11,6 +11,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.phpenv/bin:$PATH"
 
 # homebrew
+export PATH="/opt/homebrew/bin:$PATH"
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/bison/bin:$PATH"
 export PATH="/opt/homebrew/opt/libxml2/bin:$PATH"
