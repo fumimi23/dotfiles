@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# apt udate
-sudo apt update
-sudo apt upgrade
-
 # nodenv
 git clone https://github.com/nodenv/nodenv.git ~/.nodenv
 exec $SHELL -l
