@@ -13,3 +13,7 @@ eval "$(pyenv virtualenv-init -)"
 
 # alias
 source $BASHDOTDIR/.bash_aliases
+
+#starship
+eval "$(starship init bash)"
+export STARSHIP_CONFIG=~/dotfiles/starship.toml
