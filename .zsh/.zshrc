@@ -15,6 +15,9 @@ eval "$(pyenv virtualenv-init -)"
 # phpenv
 eval "$(phpenv init -)"
 
+# goenv
+eval "$(goenv init -)"
+
 # starship
 eval "$(starship init zsh)"
 
