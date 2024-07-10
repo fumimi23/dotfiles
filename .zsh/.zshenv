@@ -14,6 +14,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 # phpenv
 export PATH="$HOME/.phpenv/bin:$PATH"
 
+# goenv
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+
 # homebrew
 export PATH="/opt/homebrew/bin:$PATH"
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
