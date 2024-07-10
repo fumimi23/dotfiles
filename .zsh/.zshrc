@@ -20,7 +20,3 @@ eval "$(starship init zsh)"
 
 # alias
 source $ZDOTDIR/.zalias
-
-#volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
