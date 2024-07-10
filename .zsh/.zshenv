@@ -4,6 +4,10 @@ export PATH=/usr/local/bin/git:$PATH
 # nodenv
 export PATH="$HOME/.nodenv/bin:$PATH"
 
+#volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 
