@@ -7,6 +7,7 @@
 1. 以下を`$HOME/.zshenv`に追記
 
 ```shell
+# My dotfiles
 if [ -d "$HOME/dotfiles/.zsh" ] ; then
     export ZDOTDIR=$HOME/dotfiles/.zsh
     source $ZDOTDIR/.zshenv
@@ -44,6 +45,7 @@ exec $SHELL -l
 1. 以下を`$HOME/.bashrc`に追記
 
 ```shell
+# My dotfiles
 if [ -d "$HOME/dotfiles/.bash" ] ; then
     export BASHDOTDIR=$HOME/dotfiles/.bash
     source $BASHDOTDIR/.bashrc
