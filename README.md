@@ -24,6 +24,7 @@ exec $SHELL -l
 git clone https://github.com/nodenv/nodenv.git ~/.nodenv
 exec $SHELL -l
 git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
+git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
 
 # pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
@@ -62,6 +63,7 @@ exec $SHELL -l
 git clone https://github.com/nodenv/nodenv.git ~/.nodenv
 exec $SHELL -l
 git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
+git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
 
 # pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
