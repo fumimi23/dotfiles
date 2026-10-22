@@ -7,12 +7,17 @@ fi
 
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate "$_shell")"
+  # shim 経由で呼ぶと、mise/global.toml の版が未インストールのときシェル起動中に自動インストールが走る。
+  # 実体が無ければ starship は諦め、素のプロンプトで起動する
+  _starship="$(mise which starship 2>/dev/null)"
+else
+  _starship="$(command -v starship)"
 fi
 
-if command -v starship >/dev/null 2>&1; then
-  eval "$(starship init "$_shell")"
+if [ -n "$_starship" ]; then
+  eval "$("$_starship" init "$_shell")"
 fi
 
-unset _shell
+unset _shell _starship
 
 source "$DOTFILES/common/aliases.sh"

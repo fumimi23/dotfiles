@@ -62,9 +62,12 @@ fi
 curl https://mise.run | sh
 exec $SHELL -l
 mise install
+exec $SHELL -l
 ```
 
 mise は Homebrew や apt ではなく公式インストーラで入れる。パッケージマネージャ経由で入れると `mise self-update` が無効化されるため。
+
+`mise/global.toml` の版を変えたら、各マシンで `mise install` し直す。
 
 ### 3. リポジトリごとの初回作業
 
