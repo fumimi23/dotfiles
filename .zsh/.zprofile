@@ -5,20 +5,3 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 gnubin=/opt/homebrew/opt/grep/libexec/gnubin
 path=($gnubin ${path:#$gnubin})
 unset gnubin
-
-# ssh-agent はログインごとに増やさず、起動済みがあればそれに繋ぐ
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  if [ -f "$HOME/.ssh/ssh-agent" ]; then
-    source "$HOME/.ssh/ssh-agent" > /dev/null
-  fi
-  ssh-add -l > /dev/null 2>&1
-  # 2 = エージェントに接続できない（1 = 鍵が無いだけ）
-  if [ $? -eq 2 ]; then
-    mkdir -p -m 700 "$HOME/.ssh"
-    (umask 077; ssh-agent -s > "$HOME/.ssh/ssh-agent")
-    source "$HOME/.ssh/ssh-agent" > /dev/null
-  fi
-  if ! ssh-add -l > /dev/null 2>&1; then
-    ssh-add "$HOME/.ssh/github_rsa" 2> /dev/null
-  fi
-fi
