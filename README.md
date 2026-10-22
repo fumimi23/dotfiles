@@ -70,5 +70,8 @@ mise は Homebrew や apt ではなく公式インストーラで入れる。パ
 
 ```shell
 cd <リポジトリ>
+mise trust
 mise install
 ```
+
+`mise trust` を忘れると、そのリポジトリの `mise.toml` は読まれずに `error parsing config file` になる。
