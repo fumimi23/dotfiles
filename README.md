@@ -14,7 +14,7 @@ macOS（zsh）と WSL Ubuntu（bash）のシェル設定。
 | `mise/global.toml` | mise のグローバル設定。`MISE_GLOBAL_CONFIG_FILE` で参照する |
 | `starship.toml` | プロンプト設定。`STARSHIP_CONFIG` で参照する |
 
-ツールのバージョンは mise で管理する。各リポジトリの `.node-version` / `.python-version` / `mise.toml` を読み、`package.json` の `packageManager` で固定した yarn / pnpm は corepack 経由で使う。どのリポジトリにも属さない terraform のようなツールは `mise/global.toml` にグローバルに固定する。
+ツールのバージョンは mise で管理する。各リポジトリの `.node-version` / `.python-version` / `mise.toml` を読み、`package.json` の `packageManager` で固定した yarn / pnpm は corepack 経由で使う。starship や terraform のような、どのリポジトリにも属さないツールは `mise/global.toml` にグローバルに固定する。
 
 mise のグローバル設定は `mise/global.toml` だけが読まれ、`~/.config/mise/` 配下は読まれない。`mise use -g` もこのファイルを書き換える。
 
@@ -24,49 +24,49 @@ mise のグローバル設定は `mise/global.toml` だけが読まれ、`~/.con
 git clone https://github.com/fumimi23/dotfiles.git ~/dotfiles
 ```
 
-### macOS（zsh）
+### 1. シェルから読み込ませる（OS ごとの差分）
 
-1. `$HOME/.zshenv` に追記
+#### macOS（zsh）
 
-    ```shell
-    # My dotfiles
-    if [ -d "$HOME/dotfiles/.zsh" ] ; then
-        export ZDOTDIR=$HOME/dotfiles/.zsh
-        source $ZDOTDIR/.zshenv
-    fi
-    ```
+`$HOME/.zshenv` に追記する。
 
-2. Homebrew で必要なパッケージをインストール
+```shell
+# My dotfiles
+if [ -d "$HOME/dotfiles/.zsh" ] ; then
+    export ZDOTDIR=$HOME/dotfiles/.zsh
+    source $ZDOTDIR/.zshenv
+fi
+```
 
-    ```shell
-    brew install starship grep zsh-completions
-    curl https://mise.run | sh
-    exec $SHELL -l
-    ```
+GNU grep と zsh 補完だけは mise ではなく Homebrew で入れる。
 
-    mise は brew ではなく公式インストーラで入れる。brew 版は `mise self-update` が無効化されるため。
+```shell
+brew install grep zsh-completions
+```
 
-### WSL Ubuntu（bash）
+#### WSL Ubuntu（bash）
 
-1. `$HOME/.bashrc` に追記
+`$HOME/.bashrc` に追記する。
 
-    ```shell
-    # My dotfiles
-    if [ -d "$HOME/dotfiles/.bash" ] ; then
-        export BASHDOTDIR=$HOME/dotfiles/.bash
-        source $BASHDOTDIR/.bashrc
-    fi
-    ```
+```shell
+# My dotfiles
+if [ -d "$HOME/dotfiles/.bash" ] ; then
+    export BASHDOTDIR=$HOME/dotfiles/.bash
+    source $BASHDOTDIR/.bashrc
+fi
+```
 
-2. starship と mise をインストール
+### 2. mise とツールを入れる（共通）
 
-    ```shell
-    curl -sS https://starship.rs/install.sh | sh
-    curl https://mise.run | sh
-    exec $SHELL -l
-    ```
+```shell
+curl https://mise.run | sh
+exec $SHELL -l
+mise install
+```
 
-### リポジトリごとの初回作業
+mise は Homebrew や apt ではなく公式インストーラで入れる。パッケージマネージャ経由で入れると `mise self-update` が無効化されるため。starship を含むグローバルのツールは、`mise install` が `mise/global.toml` に沿って入れる。
+
+### 3. リポジトリごとの初回作業
 
 ```shell
 cd <リポジトリ>
