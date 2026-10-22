@@ -3,3 +3,6 @@
 idiomatic_version_file_enable_tools = ["node", "python"]
 # package.json の packageManager で固定した yarn / pnpm を使えるようにする
 node.corepack = true
+
+[tools]
+terraform = "1.8.5"
