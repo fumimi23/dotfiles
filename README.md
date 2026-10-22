@@ -64,7 +64,7 @@ exec $SHELL -l
 mise install
 ```
 
-mise は Homebrew や apt ではなく公式インストーラで入れる。パッケージマネージャ経由で入れると `mise self-update` が無効化されるため。starship を含むグローバルのツールは、`mise install` が `mise/global.toml` に沿って入れる。
+mise は Homebrew や apt ではなく公式インストーラで入れる。パッケージマネージャ経由で入れると `mise self-update` が無効化されるため。
 
 ### 3. リポジトリごとの初回作業
 
@@ -73,5 +73,3 @@ cd <リポジトリ>
 mise trust
 mise install
 ```
-
-`mise trust` が要るのは `mise.toml` に `[settings]` か `[env]` がある場合で、忘れると設定が読まれず `error parsing config file` になる。`[tools]` だけなら trust なしで効く。trust の状態は `~/.local/state/mise/trusted-configs/` にマシンごとに保存されるので、マシンを移るたびに必要になる。
