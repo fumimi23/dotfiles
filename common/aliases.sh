@@ -13,6 +13,7 @@ alias gpl='git pull'
 alias grb='git rebase'
 alias grbc='git rebase --continue'
 alias gcp='git cherry-pick'
+alias gco='git checkout'
 
 alias ll='ls -alp'
 
