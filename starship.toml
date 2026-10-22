@@ -27,7 +27,7 @@ disabled = true
 min_time = 50
 show_milliseconds = true
 format = 'took [$duration](bold yellow)'
-show_notifications = true
+show_notifications = false
 
 [directory]
 truncation_length = 100

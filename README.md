@@ -1,10 +1,34 @@
 # dotfiles
 
-## How to install
+macOS（zsh）と WSL Ubuntu（bash）のシェル設定。
 
-### zsh
+## 構成
 
-1. 以下を`$HOME/.zshenv`に追記
+| パス | 内容 |
+|---|---|
+| `common/env.sh` | bash / zsh 共通の環境変数 |
+| `common/init.sh` | bash / zsh 共通の対話シェル初期化（mise・starship・エイリアス） |
+| `common/aliases.sh` | エイリアス |
+| `.zsh/` | macOS（zsh）固有の設定。`ZDOTDIR` で読み込む |
+| `.bash/` | WSL Ubuntu（bash）固有の設定。`BASHDOTDIR` で読み込む |
+| `mise/global.toml` | mise のグローバル設定。`MISE_GLOBAL_CONFIG_FILE` で参照する |
+| `starship.toml` | プロンプト設定。`STARSHIP_CONFIG` で参照する |
+
+ツールのバージョンは mise で管理する。各リポジトリの `.node-version` / `.python-version` / `mise.toml` を読み、`package.json` の `packageManager` で固定した yarn / pnpm は corepack 経由で使う。starship や terraform のような、どのリポジトリにも属さないツールは `mise/global.toml` にグローバルに固定する。
+
+mise のグローバル設定は `mise/global.toml` だけが読まれ、`~/.config/mise/` 配下は読まれない。`mise use -g` もこのファイルを書き換える。
+
+## セットアップ
+
+```shell
+git clone https://github.com/fumimi23/dotfiles.git ~/dotfiles
+```
+
+### 1. シェルから読み込ませる（OS ごとの差分）
+
+#### macOS（zsh）
+
+`$HOME/.zshenv` に追記する。
 
 ```shell
 # My dotfiles
@@ -14,36 +38,15 @@ if [ -d "$HOME/dotfiles/.zsh" ] ; then
 fi
 ```
 
-2. 以下のコマンドを1行ずつ実行
+GNU grep と zsh 補完だけは mise ではなく Homebrew で入れる。
+
 ```shell
-#starship
-curl -sS https://starship.rs/install.sh | sh
-exec $SHELL -l
-
-# nodenv
-git clone https://github.com/nodenv/nodenv.git ~/.nodenv
-exec $SHELL -l
-git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
-git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
-
-# pyenv
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-exec $SHELL -l
-git clone https://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-exec $SHELL -l
-
-# phpenv
-# TODO: install phpenv
-
-# goenv
-git clone https://github.com/syndbg/goenv.git ~/.goenv
-exec $SHELL -l
+brew install grep zsh-completions
 ```
 
-### bash
+#### WSL Ubuntu（bash）
 
-1. 以下を`$HOME/.bashrc`に追記
+`$HOME/.bashrc` に追記する。
 
 ```shell
 # My dotfiles
@@ -53,23 +56,23 @@ if [ -d "$HOME/dotfiles/.bash" ] ; then
 fi
 ```
 
-2. 以下のコマンドを1行ずつ実行
+### 2. mise とツールを入れる（共通）
+
 ```shell
-#starship
-curl -sS https://starship.rs/install.sh | sh
+curl https://mise.run | sh
 exec $SHELL -l
+mise install
+exec $SHELL -l
+```
 
-# nodenv
-git clone https://github.com/nodenv/nodenv.git ~/.nodenv
-exec $SHELL -l
-git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
-git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
+mise は Homebrew や apt ではなく公式インストーラで入れる。パッケージマネージャ経由で入れると `mise self-update` が無効化されるため。
 
-# pyenv
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-exec $SHELL -l
-git clone https://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-exec $SHELL -l
-sudo apt install build-essential libbz2-dev libdb-dev libreadline-dev libffi-dev libgdbm-dev liblzma-dev libncursesw5-dev libsqlite3-dev libssl-dev zlib1g-dev uuid-dev tk-dev
+`mise/global.toml` の版を変えたら、各マシンで `mise install` し直す。
+
+### 3. リポジトリごとの初回作業
+
+```shell
+cd <リポジトリ>
+mise trust
+mise install
 ```
