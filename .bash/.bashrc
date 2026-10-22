@@ -1,6 +1,6 @@
 DOTFILES="${BASHDOTDIR%/*}"
 
-# mise の置き場所。~/.profile が足すのはログインシェルだけなので、非ログインの対話シェルでも見つかるようにする
+# mise の置き場所。Ubuntu の ~/.profile は ~/.bashrc を読んだ後で ~/.local/bin を足すので、ログインシェルでもここで足す必要がある
 case ":$PATH:" in
   *":$HOME/.local/bin:"*) ;;
   *) export PATH="$HOME/.local/bin:$PATH" ;;
