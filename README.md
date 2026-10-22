@@ -74,4 +74,4 @@ mise trust
 mise install
 ```
 
-`mise trust` を忘れると、そのリポジトリの `mise.toml` は読まれずに `error parsing config file` になる。
+`mise trust` が要るのは `mise.toml` に `[settings]` か `[env]` がある場合で、忘れると設定が読まれず `error parsing config file` になる。`[tools]` だけなら trust なしで効く。trust の状態は `~/.local/state/mise/trusted-configs/` にマシンごとに保存されるので、マシンを移るたびに必要になる。
